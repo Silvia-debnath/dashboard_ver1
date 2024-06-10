@@ -34,21 +34,7 @@ export default function Home() {
     timeOfDay: { start: 5, end: 11 }
   })
 
-  useEffect(() => {
-    // Fetch position from API
-    const fetchPosition = async () => {
-      try {
-        const response = await fetch('/api/position');
-        const data = await response.json();
-        setPosition(data.position);
-      } catch (error) {
-        console.error('Error fetching position:', error);
-      }
-    };
-
-    fetchPosition();
-  }, []);
-
+  
   const handlePositionChange = (newPosition: [number, number]) => {
     setPosition(newPosition);
   }
@@ -139,11 +125,7 @@ export default function Home() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              <Marker position={[position[0], position[1]]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
+              
             </MapContainer>
           </CardContent>
         </Card>
