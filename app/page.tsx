@@ -343,6 +343,17 @@ export default function Home() {
           Apply Settings
         </MuiButton>
       </div>
+      <div className="mt-4">
+  <Card className="bg-black p-2 md:p-4 rounded-lg">
+    <CardHeader>
+      <CardTitle className="text-sm md:text-base text-white">Resolution Settings</CardTitle>
+    </CardHeader>
+    <CardContent>
+      {/* Your resolution settings content goes here */}
+    </CardContent>
+  </Card>
+</div>
+
     </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
