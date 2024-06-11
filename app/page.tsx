@@ -305,7 +305,7 @@ export default function Home() {
               <Input id="solar-panel-efficiency" value={solarSettings.solarPanelEfficiency} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, solarPanelEfficiency: Number(e.target.value) })} className="text-white bg-[#161b22]" />
               <div className="flex items-center gap-2">
                 <Label htmlFor="time-of-day-solar" className="text-white">
-                  Time of Day
+                  Time in Day
                 </Label>
                 <MuiSlider
                   id="time-of-day-solar"
