@@ -326,6 +326,72 @@ export default function Home() {
           </Card>
         </div>
       </div>
+      <Card className="bg-black p-2 md:p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg md:text-xl font-semibold text-white">
+            RESOLUTION SETTINGS
+          </h2>
+        </div>
+        <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
+          <RadioGroup
+            row
+            aria-label="time-resolution"
+            name="time-resolution"
+            value={timeResolution}
+            onChange={(e) => setTimeResolution(e.target.value)}
+          >
+            <FormControlLabel
+              value="hourly"
+              control={<Radio />}
+              label="Hourly"
+              className="text-white"
+            />
+            <FormControlLabel
+              value="daily"
+              control={<Radio />}
+              label="Daily"
+              className="text-white"
+            />
+            <FormControlLabel
+              value="monthly"
+              control={<Radio />}
+              label="Monthly"
+              className="text-white"
+            />
+          </RadioGroup>
+        </div>
+        <MuiSlider
+          value={timeRange}
+          onChange={(e, value) => setTimeRange(value as number[])}
+          min={0}
+          max={24}
+          step={1}
+          valueLabelDisplay="auto"
+          className="w-full"
+          sx={{
+            color: "black",
+            "& .MuiSlider-rail": {
+              color: "white",
+            },
+            "& .MuiSlider-track": {
+              color: "white",
+            },
+            "& .MuiSlider-thumb": {
+              color: "blue",
+            },
+          }}
+        />
+        <div className="flex justify-between items-center mb-4 mt-2">
+          <MuiButton
+            variant="contained"
+            color="primary"
+            onClick={handleApply}
+            className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
+          >
+            APPLY
+          </MuiButton>
+        </div>
+      </Card>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <Card className="bg-black p-2 md:p-4">
           <CardHeader>
@@ -488,72 +554,6 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <Card className="bg-black p-2 md:p-4 rounded-lg">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-lg md:text-xl font-semibold text-white">
-            RESOLUTION SETTINGS
-          </h2>
-        </div>
-        <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
-          <RadioGroup
-            row
-            aria-label="time-resolution"
-            name="time-resolution"
-            value={timeResolution}
-            onChange={(e) => setTimeResolution(e.target.value)}
-          >
-            <FormControlLabel
-              value="hourly"
-              control={<Radio />}
-              label="Hourly"
-              className="text-white"
-            />
-            <FormControlLabel
-              value="daily"
-              control={<Radio />}
-              label="Daily"
-              className="text-white"
-            />
-            <FormControlLabel
-              value="monthly"
-              control={<Radio />}
-              label="Monthly"
-              className="text-white"
-            />
-          </RadioGroup>
-        </div>
-        <MuiSlider
-          value={timeRange}
-          onChange={(e, value) => setTimeRange(value as number[])}
-          min={0}
-          max={24}
-          step={1}
-          valueLabelDisplay="auto"
-          className="w-full"
-          sx={{
-            color: "black",
-            "& .MuiSlider-rail": {
-              color: "white",
-            },
-            "& .MuiSlider-track": {
-              color: "white",
-            },
-            "& .MuiSlider-thumb": {
-              color: "blue",
-            },
-          }}
-        />
-        <div className="flex justify-between items-center mb-4 mt-2">
-          <MuiButton
-            variant="contained"
-            color="primary"
-            onClick={handleApply}
-            className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
-          >
-            APPLY
-          </MuiButton>
-        </div>
-      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
