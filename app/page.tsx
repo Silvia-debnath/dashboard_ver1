@@ -2,18 +2,12 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { Button as MuiButton, Slider as MuiSlider, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { ResponsiveLine } from "@nivo/line";
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import { useState, useEffect } from "react";
 import { clsx } from "clsx";
-import { Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
 
 const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
@@ -143,12 +137,12 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-[#0d1117] text-white min-h-screen p-4 md:p-6 lg:p-8">
+    <div className="bg-black text-white min-h-screen p-4 md:p-6 lg:p-8">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl md:text-3xl font-semibold">Dashboard</h1>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg">
+        <Card className="bg-black p-2 md:p-4 rounded-lg">
           <CardHeader>
             <CardTitle>Map</CardTitle>
           </CardHeader>
@@ -158,11 +152,12 @@ export default function Home() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
+            
             </MapContainer>
           </CardContent>
         </Card>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="bg-[#161b22] p-2 md:p-4">
+          <Card className="bg-black p-2 md:p-4">
             <CardHeader>
               <CardTitle className="text-sm md:text-base text-white">LIFTING SETTINGS</CardTitle>
             </CardHeader>
@@ -171,11 +166,11 @@ export default function Home() {
                 <Label htmlFor="amount-water" className="text-sm md:text-base text-white">
                   Amount of Water
                 </Label>
-                <Input id="amount-water" value={liftingSettings.amountOfWater} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+                <Input id="amount-water" value={liftingSettings.amountOfWater} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-black" />
                 <Label htmlFor="lifting-height" className="text-sm md:text-base text-white">
                   Lifting Height
                 </Label>
-                <Input id="lifting-height" value={liftingSettings.liftingHeight} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, liftingHeight: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+                <Input id="lifting-height" value={liftingSettings.liftingHeight} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, liftingHeight: Number(e.target.value) })} className="text-white bg-black" />
                 <div className="flex items-center gap-2">
                   <Label htmlFor="time-of-day-lifting" className="text-sm md:text-base text-white">
                     Time of Day
@@ -206,7 +201,7 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-[#161b22] p-2 md:p-4">
+          <Card className="bg-black p-2 md:p-4">
             <CardHeader>
               <CardTitle className="text-sm md:text-base text-white">DISTRIBUTION SETTINGS</CardTitle>
             </CardHeader>
@@ -215,11 +210,11 @@ export default function Home() {
                 <Label htmlFor="area-distribution" className="text-sm md:text-base text-white">
                   Area of Distribution
                 </Label>
-                <Input id="area-distribution" value={distributionSettings.areaOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, areaOfDistribution: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+                <Input id="area-distribution" value={distributionSettings.areaOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, areaOfDistribution: Number(e.target.value) })} className="text-white bg-black" />
                 <Label htmlFor="depth-distribution" className="text-sm md:text-base text-white">
                   Depth of Distribution
                 </Label>
-                <Input id="depth-distribution" value={distributionSettings.depthOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, depthOfDistribution: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+                <Input id="depth-distribution" value={distributionSettings.depthOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, depthOfDistribution: Number(e.target.value) })} className="text-white bg-black" />
                 <div className="flex items-center gap-2">
                   <Label htmlFor="time-of-day-distribution" className="text-sm md:text-base text-white">
                     Time of Day
@@ -253,7 +248,7 @@ export default function Home() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <Card className="bg-[#161b22] p-2 md:p-4">
+        <Card className="bg-black p-2 md:p-4">
           <CardHeader>
             <CardTitle className="text-sm md:text-base text-white">PRESSURIZATION SETTINGS</CardTitle>
           </CardHeader>
@@ -262,11 +257,11 @@ export default function Home() {
               <Label htmlFor="amount-water-pressurization" className="text-sm md:text-base text-white">
                 Amount of Water
               </Label>
-              <Input id="amount-water-pressurization" value={pressureSettings.amountOfWater} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+              <Input id="amount-water-pressurization" value={pressureSettings.amountOfWater} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-black" />
               <Label htmlFor="pressurization-required" className="text-sm md:text-base text-white">
                 Pressurization required
               </Label>
-              <Input id="pressurization-required" value={pressureSettings.pressureRequired} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, pressureRequired: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+              <Input id="pressurization-required" value={pressureSettings.pressureRequired} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, pressureRequired: Number(e.target.value) })} className="text-white bg-black" />
               <div className="flex items-center gap-2">
                 <Label htmlFor="time-of-day-pressurization" className="text-sm md:text-base text-white">
                   Time of Day
@@ -297,7 +292,7 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4">
+        <Card className="bg-black p-2 md:p-4">
           <CardHeader>
             <CardTitle className="text-sm md:text-base text-white">SOLAR PANEL SETTINGS</CardTitle>
           </CardHeader>
@@ -306,11 +301,11 @@ export default function Home() {
               <Label htmlFor="net-area" className="text-sm md:text-base text-white">
                 Net Area of Active Solar Panels
               </Label>
-              <Input id="net-area" value={solarSettings.netAreaOfActiveSolarPanels} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, netAreaOfActiveSolarPanels: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+              <Input id="net-area" value={solarSettings.netAreaOfActiveSolarPanels} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, netAreaOfActiveSolarPanels: Number(e.target.value) })} className="text-white bg-black" />
               <Label htmlFor="solar-panel-efficiency" className="text-sm md:text-base text-white">
                 Solar Panel Efficiency
               </Label>
-              <Input id="solar-panel-efficiency" value={solarSettings.solarPanelEfficiency} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, solarPanelEfficiency: Number(e.target.value) })} className="text-white bg-[#161b22]" />
+              <Input id="solar-panel-efficiency" value={solarSettings.solarPanelEfficiency} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, solarPanelEfficiency: Number(e.target.value) })} className="text-white bg-black" />
               <div className="flex items-center gap-2">
                 <Label htmlFor="time-of-day-solar" className="text-sm md:text-base text-white">
                   Time of Day
@@ -341,7 +336,7 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg">
+      <Card className="bg-black p-2 md:p-4 rounded-lg">
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-lg md:text-xl font-semibold text-white">RESOLUTION SETTINGS</h2>
         </div>
@@ -402,30 +397,30 @@ export default function Home() {
       </Card>
 
       <div className="pt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px] text-white" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
-        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
       </div>
