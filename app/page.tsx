@@ -3,11 +3,10 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
+import { Button as MuiButton, Slider as MuiSlider } from '@mui/material';
 import { ResponsiveLine } from "@nivo/line";
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import { Slider } from "@/components/ui/slider";
 import { useState, useEffect } from "react";
 import { clsx } from "clsx";
 
@@ -111,6 +110,31 @@ export default function Home() {
     }
   }
 
+  const handleSliderChange = (setting: string, newValue: number[]) => {
+    if (Array.isArray(newValue)) {
+      const [start, end] = newValue;
+      handleSettingsChange(setting, {
+        ...getSettingsFromString(setting),
+        timeOfDay: { start, end }
+      });
+    }
+  }
+
+  const getSettingsFromString = (setting: string) => {
+    switch (setting) {
+      case 'liftingSettings':
+        return liftingSettings;
+      case 'distributionSettings':
+        return distributionSettings;
+      case 'pressureSettings':
+        return pressureSettings;
+      case 'solarSettings':
+        return solarSettings;
+      default:
+        return {};
+    }
+  }
+
   return (
     <div className="bg-[#0d1117] text-white min-h-screen p-8 md:p-12 lg:p-16">
       <div className="flex justify-between items-center mb-6">
@@ -149,13 +173,26 @@ export default function Home() {
                   <Label htmlFor="time-of-day-lifting" className="text-white">
                     Time of Day
                   </Label>
-                  <Slider
+                  <MuiSlider
                     id="time-of-day-lifting"
                     value={[liftingSettings.timeOfDay.start, liftingSettings.timeOfDay.end]}
-                    onValueChange={(value) => handleSettingsChange('liftingSettings', { ...liftingSettings, timeOfDay: { start: value[0], end: value[1] } })}
+                    onChange={(e, value) => handleSliderChange('liftingSettings', value as number[])}
+                    min={0}
                     max={24}
                     step={1}
-                    className={clsx('w-full', 'bg-[#161b22]')} // Add custom styles to the slider // Set slider color to white
+                    valueLabelDisplay="auto"
+                    className={clsx('w-full', 'bg-transparent')}
+                    sx={{
+                      color: 'white',
+                      '& .MuiSlider-rail': {color: 'white'
+                      },
+                      '& .MuiSlider-track': {
+                        color: 'blue'
+                      },
+                      '& .MuiSlider-thumb': {
+                        color: 'blue'
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -175,16 +212,31 @@ export default function Home() {
                   Depth of Distribution
                 </Label>
                 <Input id="depth-distribution" value={distributionSettings.depthOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, depthOfDistribution: Number(e.target.value) })} className="text-white bg-[#161b22]" />
-                <div className="flex items-center gap-2"><Label htmlFor="time-of-day-distribution" className="text-white">
-                  Time of Day
-                </Label>
-                  <Slider
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="time-of-day-distribution" className="text-white">
+                    Time of Day
+                  </Label>
+                  <MuiSlider
                     id="time-of-day-distribution"
                     value={[distributionSettings.timeOfDay.start, distributionSettings.timeOfDay.end]}
-                    onValueChange={(value) => handleSettingsChange('distributionSettings', { ...distributionSettings, timeOfDay: { start: value[0], end: value[1] } })}
+                    onChange={(e, value) => handleSliderChange('distributionSettings', value as number[])}
+                    min={0}
                     max={24}
                     step={1}
-                    className="w-full"
+                    valueLabelDisplay="auto"
+                    className="w-full bbg-transparent"
+                    sx={{
+                      color: 'white',
+                      '& .MuiSlider-rail': {
+                        color: 'white'
+                      },
+                      '& .MuiSlider-track': {
+                        color: 'blue'
+                      },
+                      '& .MuiSlider-thumb': {
+                        color: 'blue'
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -211,13 +263,27 @@ export default function Home() {
                 <Label htmlFor="time-of-day-pressurization" className="text-white">
                   Time of Day
                 </Label>
-                <Slider
+                <MuiSlider
                   id="time-of-day-pressurization"
                   value={[pressureSettings.timeOfDay.start, pressureSettings.timeOfDay.end]}
-                  onValueChange={(value) => handleSettingsChange('pressureSettings', { ...pressureSettings, timeOfDay: { start: value[0], end: value[1] } })}
+                  onChange={(e, value) => handleSliderChange('pressureSettings', value as number[])}
+                  min={0}
                   max={24}
                   step={1}
-                  className="w-full"
+                  valueLabelDisplay="auto"
+                  className="w-full bg-transparent"
+                  sx={{
+                    color: 'white',
+                    '& .MuiSlider-rail': {
+                      color: 'white'
+                    },
+                    '& .MuiSlider-track': {
+                      color: 'blue'
+                    },
+                    '& .MuiSlider-thumb': {
+                      color: 'blue'
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -241,13 +307,27 @@ export default function Home() {
                 <Label htmlFor="time-of-day-solar" className="text-white">
                   Time of Day
                 </Label>
-                <Slider
+                <MuiSlider
                   id="time-of-day-solar"
                   value={[solarSettings.timeOfDay.start, solarSettings.timeOfDay.end]}
-                  onValueChange={(value) => handleSettingsChange('solarSettings', { ...solarSettings, timeOfDay: { start: value[0], end: value[1] } })}
+                  onChange={(e, value) => handleSliderChange('solarSettings', value as number[])}
+                  min={0}
                   max={24}
                   step={1}
-                  className="w-full"
+                  valueLabelDisplay="auto"
+                  className="w-full bg-transparent"
+                  sx={{
+                    color: 'white',
+                    '& .MuiSlider-rail': {
+                      color: 'white'
+                    },
+                    '& .MuiSlider-track': {
+                      color: 'blue'
+                    },
+                    '& .MuiSlider-thumb': {
+                      color: 'blue'
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -256,24 +336,25 @@ export default function Home() {
       </div>
       <div className="flex justify-between items-center mb-4">
         <div className="flex space-x-4">
-          <Button variant="ghost" className="text-white">
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
             HOURLY
-          </Button>
-          <Button variant="ghost" className="text-white">
+          </MuiButton>
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
             DAILY
-          </Button>
-          <Button variant="ghost" className="text-white">
+          </MuiButton>
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
             MONTHLY
-          </Button>
+          </MuiButton>
         </div>
-        <Button variant="secondary" onClick={handleApply} className="text-white">
+        <MuiButton variant="contained" color="primary" onClick={handleApply} className="text-white bg-blue-500 hover:bg-blue-600">
           APPLY
-        </Button>
+        </MuiButton>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px] text-white" />
         <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" /><LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
+        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
+        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
         <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
@@ -284,6 +365,7 @@ export default function Home() {
     </div>
   )
 }
+
 function LineChart({ className }: { className: string }) {
   return (
     <div className={className}>
