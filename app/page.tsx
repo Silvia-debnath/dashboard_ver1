@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { Button as MuiButton, Slider as MuiSlider } from '@mui/material';
+import { Button as MuiButton, Slider as MuiSlider, Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { ResponsiveLine } from "@nivo/line";
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
@@ -14,7 +14,15 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-
+const defaultIcon = L.icon({
+  iconUrl: icon.toString(),
+  shadowUrl: iconShadow.toString(),
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
 
 const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
@@ -41,6 +49,8 @@ export default function Home() {
     solarPanelEfficiency: 123345,
     timeOfDay: { start: 5, end: 11 }
   });
+  const [timeResolution, setTimeResolution] = useState('hourly');
+  const [timeRange, setTimeRange] = useState([5, 11]);
 
   const handlePositionChange = (newPosition: [number, number]) => {
     setPosition(newPosition);
@@ -149,7 +159,7 @@ export default function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg">
           <CardHeader>
-            <CardTitle className="text-white">Map</CardTitle>
+            <CardTitle>Map</CardTitle>
           </CardHeader>
           <CardContent className="h-[300px] md:h-[400px] lg:h-[500px]">
             <MapContainer center={[position[0], position[1]]} zoom={13} scrollWheelZoom={false} style={{ height: '100%' }}>
@@ -157,6 +167,9 @@ export default function Home() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
+              <Marker position={[position[0], position[1]]} icon={defaultIcon}>
+                <Popup>Your Location</Popup>
+              </Marker>
             </MapContainer>
           </CardContent>
         </Card>
@@ -187,14 +200,14 @@ export default function Home() {
                     max={24}
                     step={1}
                     valueLabelDisplay="auto"
-                    className={clsx('w-full', 'bg-transparent')}
+                    className={clsx('w-full')}
                     sx={{
                       color: 'white',
                       '& .MuiSlider-rail': {
                         color: 'white'
                       },
                       '& .MuiSlider-track': {
-                        color: 'blue'
+                        color: 'white'
                       },
                       '& .MuiSlider-thumb': {
                         color: 'blue'
@@ -231,14 +244,14 @@ export default function Home() {
                     max={24}
                     step={1}
                     valueLabelDisplay="auto"
-                    className="w-full bg-transparent-500"
+                    className="w-full"
                     sx={{
                       color: 'white',
                       '& .MuiSlider-rail': {
                         color: 'white'
                       },
                       '& .MuiSlider-track': {
-                        color: 'blue'
+                        color: 'white'
                       },
                       '& .MuiSlider-thumb': {
                         color: 'blue'
@@ -278,14 +291,14 @@ export default function Home() {
                   max={24}
                   step={1}
                   valueLabelDisplay="auto"
-                  className="w-full bg-transparent-500"
+                  className="w-full"
                   sx={{
                     color: 'white',
                     '& .MuiSlider-rail': {
                       color: 'white'
                     },
                     '& .MuiSlider-track': {
-                      color: 'blue'
+                      color: 'white'
                     },
                     '& .MuiSlider-thumb': {
                       color: 'blue'
@@ -313,8 +326,7 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <Label htmlFor="time-of-day-solar" className="text-sm md:text-base text-white">
                   Time of Day
-                </Label>
-                <MuiSlider
+                </Label><MuiSlider
                   id="time-of-day-solar"
                   value={[solarSettings.timeOfDay.start, solarSettings.timeOfDay.end]}
                   onChange={(e, value) => handleSliderChange('solarSettings', value as number[])}
@@ -322,14 +334,14 @@ export default function Home() {
                   max={24}
                   step={1}
                   valueLabelDisplay="auto"
-                  className="w-full bg-transparent-500"
+                  className="w-full"
                   sx={{
                     color: 'white',
                     '& .MuiSlider-rail': {
                       color: 'white'
                     },
                     '& .MuiSlider-track': {
-                      color: 'blue'
+                      color: 'white'
                     },
                     '& .MuiSlider-thumb': {
                       color: 'blue'
@@ -341,33 +353,93 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex space-x-2 md:space-x-4">
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
-            HOURLY
-          </MuiButton>
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
-            DAILY
-          </MuiButton>
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
-            MONTHLY
+      <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-lg md:text-xl font-semibold text-white">RESOLUTION SETTINGS</h2>
+        </div>
+        <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
+          <RadioGroup
+            row
+            aria-label="time-resolution"
+            name="time-resolution"
+            value={timeResolution}
+            onChange={(e) => setTimeResolution(e.target.value)}
+          >
+            <FormControlLabel
+              value="hourly"
+              control={<Radio />}
+              label="Hourly"
+              className="text-white"
+            />
+            <FormControlLabel
+              value="daily"
+              control={<Radio />}
+              label="Daily"
+              className="text-white"
+            />
+            <FormControlLabel
+              value="monthly"
+              control={<Radio />}
+              label="Monthly"
+              className="text-white"
+            />
+          </RadioGroup>
+        </div>
+        <MuiSlider
+          value={timeRange}
+          onChange={(e, value) => setTimeRange(value as number[])}
+          min={0}
+          max={24}
+          step={1}
+          valueLabelDisplay="auto"
+          className="w-full"
+          sx={{
+            color: 'black',
+            '& .MuiSlider-rail': {
+              color: 'white'
+            },
+            '& .MuiSlider-track': {
+              color: 'white'
+            },
+            '& .MuiSlider-thumb': {
+              color: 'blue'
+            }
+          }}
+        />
+        <div className="flex justify-between items-center mb-4 mt-2">
+          <MuiButton variant="contained" color="primary" onClick={handleApply} className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm">
+            APPLY
           </MuiButton>
         </div>
-        <MuiButton variant="contained" color="primary" onClick={handleApply} className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm">
-          APPLY
-        </MuiButton>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px] text-white" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+      </Card>
+
+      <div className="pt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px] text-white" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg border border-white">
+          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        </Card>
       </div>
     </div>
   )
