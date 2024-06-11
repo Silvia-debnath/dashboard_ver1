@@ -9,6 +9,12 @@ import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import { useState, useEffect } from "react";
 import { clsx } from "clsx";
+import { Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+
 
 const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
@@ -136,16 +142,16 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-[#0d1117] text-white min-h-screen p-8 md:p-12 lg:p-16">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-semibold">Dashboard</h1>
+    <div className="bg-[#0d1117] text-white min-h-screen p-4 md:p-6 lg:p-8">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl md:text-3xl font-semibold">Dashboard</h1>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <Card className="bg-[#161b22] p-4 rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+        <Card className="bg-[#161b22] p-2 md:p-4 rounded-lg">
           <CardHeader>
-            <CardTitle>Map</CardTitle>
+            <CardTitle className="text-white">Map</CardTitle>
           </CardHeader>
-          <CardContent className="h-[500px]">
+          <CardContent className="h-[300px] md:h-[400px] lg:h-[500px]">
             <MapContainer center={[position[0], position[1]]} zoom={13} scrollWheelZoom={false} style={{ height: '100%' }}>
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -155,22 +161,22 @@ export default function Home() {
           </CardContent>
         </Card>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="bg-[#161b22]">
+          <Card className="bg-[#161b22] p-2 md:p-4">
             <CardHeader>
-              <CardTitle className="text-white">LIFTING SETTINGS</CardTitle>
+              <CardTitle className="text-sm md:text-base text-white">LIFTING SETTINGS</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Label htmlFor="amount-water" className="text-white">
+                <Label htmlFor="amount-water" className="text-sm md:text-base text-white">
                   Amount of Water
                 </Label>
                 <Input id="amount-water" value={liftingSettings.amountOfWater} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-[#161b22]" />
-                <Label htmlFor="lifting-height" className="text-white">
+                <Label htmlFor="lifting-height" className="text-sm md:text-base text-white">
                   Lifting Height
                 </Label>
                 <Input id="lifting-height" value={liftingSettings.liftingHeight} onChange={(e) => handleSettingsChange('liftingSettings', { ...liftingSettings, liftingHeight: Number(e.target.value) })} className="text-white bg-[#161b22]" />
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="time-of-day-lifting" className="text-white">
+                  <Label htmlFor="time-of-day-lifting" className="text-sm md:text-base text-white">
                     Time of Day
                   </Label>
                   <MuiSlider
@@ -184,7 +190,8 @@ export default function Home() {
                     className={clsx('w-full', 'bg-transparent')}
                     sx={{
                       color: 'white',
-                      '& .MuiSlider-rail': {color: 'white'
+                      '& .MuiSlider-rail': {
+                        color: 'white'
                       },
                       '& .MuiSlider-track': {
                         color: 'blue'
@@ -198,22 +205,22 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-[#161b22]">
+          <Card className="bg-[#161b22] p-2 md:p-4">
             <CardHeader>
-              <CardTitle className="text-white">DISTRIBUTION SETTINGS</CardTitle>
+              <CardTitle className="text-sm md:text-base text-white">DISTRIBUTION SETTINGS</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Label htmlFor="area-distribution" className="text-white">
+                <Label htmlFor="area-distribution" className="text-sm md:text-base text-white">
                   Area of Distribution
                 </Label>
                 <Input id="area-distribution" value={distributionSettings.areaOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, areaOfDistribution: Number(e.target.value) })} className="text-white bg-[#161b22]" />
-                <Label htmlFor="depth-distribution" className="text-white">
+                <Label htmlFor="depth-distribution" className="text-sm md:text-base text-white">
                   Depth of Distribution
                 </Label>
                 <Input id="depth-distribution" value={distributionSettings.depthOfDistribution} onChange={(e) => handleSettingsChange('distributionSettings', { ...distributionSettings, depthOfDistribution: Number(e.target.value) })} className="text-white bg-[#161b22]" />
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="time-of-day-distribution" className="text-white">
+                  <Label htmlFor="time-of-day-distribution" className="text-sm md:text-base text-white">
                     Time of Day
                   </Label>
                   <MuiSlider
@@ -224,7 +231,7 @@ export default function Home() {
                     max={24}
                     step={1}
                     valueLabelDisplay="auto"
-                    className="w-full bbg-transparent"
+                    className="w-full bg-transparent-500"
                     sx={{
                       color: 'white',
                       '& .MuiSlider-rail': {
@@ -244,23 +251,23 @@ export default function Home() {
           </Card>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <Card className="bg-[#161b22]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <Card className="bg-[#161b22] p-2 md:p-4">
           <CardHeader>
-            <CardTitle className="text-white">PRESSURIZATION SETTINGS</CardTitle>
+            <CardTitle className="text-sm md:text-base text-white">PRESSURIZATION SETTINGS</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="amount-water-pressurization" className="text-white">
+              <Label htmlFor="amount-water-pressurization" className="text-sm md:text-base text-white">
                 Amount of Water
               </Label>
               <Input id="amount-water-pressurization" value={pressureSettings.amountOfWater} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, amountOfWater: Number(e.target.value) })} className="text-white bg-[#161b22]" />
-              <Label htmlFor="pressurization-required" className="text-white">
+              <Label htmlFor="pressurization-required" className="text-sm md:text-base text-white">
                 Pressurization required
               </Label>
               <Input id="pressurization-required" value={pressureSettings.pressureRequired} onChange={(e) => handleSettingsChange('pressureSettings', { ...pressureSettings, pressureRequired: Number(e.target.value) })} className="text-white bg-[#161b22]" />
               <div className="flex items-center gap-2">
-                <Label htmlFor="time-of-day-pressurization" className="text-white">
+                <Label htmlFor="time-of-day-pressurization" className="text-sm md:text-base text-white">
                   Time of Day
                 </Label>
                 <MuiSlider
@@ -271,7 +278,7 @@ export default function Home() {
                   max={24}
                   step={1}
                   valueLabelDisplay="auto"
-                  className="w-full bg-transparent"
+                  className="w-full bg-transparent-500"
                   sx={{
                     color: 'white',
                     '& .MuiSlider-rail': {
@@ -289,23 +296,23 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-[#161b22]">
+        <Card className="bg-[#161b22] p-2 md:p-4">
           <CardHeader>
-            <CardTitle className="text-white">SOLAR PANEL SETTINGS</CardTitle>
+            <CardTitle className="text-sm md:text-base text-white">SOLAR PANEL SETTINGS</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="net-area" className="text-white">
+              <Label htmlFor="net-area" className="text-sm md:text-base text-white">
                 Net Area of Active Solar Panels
               </Label>
               <Input id="net-area" value={solarSettings.netAreaOfActiveSolarPanels} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, netAreaOfActiveSolarPanels: Number(e.target.value) })} className="text-white bg-[#161b22]" />
-              <Label htmlFor="solar-panel-efficiency" className="text-white">
+              <Label htmlFor="solar-panel-efficiency" className="text-sm md:text-base text-white">
                 Solar Panel Efficiency
               </Label>
               <Input id="solar-panel-efficiency" value={solarSettings.solarPanelEfficiency} onChange={(e) => handleSettingsChange('solarSettings', { ...solarSettings, solarPanelEfficiency: Number(e.target.value) })} className="text-white bg-[#161b22]" />
               <div className="flex items-center gap-2">
-                <Label htmlFor="time-of-day-solar" className="text-white">
-                  Time in Day
+                <Label htmlFor="time-of-day-solar" className="text-sm md:text-base text-white">
+                  Time of Day
                 </Label>
                 <MuiSlider
                   id="time-of-day-solar"
@@ -315,7 +322,7 @@ export default function Home() {
                   max={24}
                   step={1}
                   valueLabelDisplay="auto"
-                  className="w-full bg-transparent"
+                  className="w-full bg-transparent-500"
                   sx={{
                     color: 'white',
                     '& .MuiSlider-rail': {
@@ -335,32 +342,32 @@ export default function Home() {
         </Card>
       </div>
       <div className="flex justify-between items-center mb-4">
-        <div className="flex space-x-4">
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
+        <div className="flex space-x-2 md:space-x-4">
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
             HOURLY
           </MuiButton>
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
             DAILY
           </MuiButton>
-          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600">
+          <MuiButton variant="outlined" color="primary" className="text-white bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-xs md:text-sm">
             MONTHLY
           </MuiButton>
         </div>
-        <MuiButton variant="contained" color="primary" onClick={handleApply} className="text-white bg-blue-500 hover:bg-blue-600">
+        <MuiButton variant="contained" color="primary" onClick={handleApply} className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm">
           APPLY
         </MuiButton>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px] text-white" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px] text-white" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
-        <LineChart className="w-full h-[200px] md:h-[250px] lg:h-[300px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+        <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
       </div>
     </div>
   )
