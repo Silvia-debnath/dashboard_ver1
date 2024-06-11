@@ -1,40 +1,42 @@
 'use client';
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Progress } from "@/components/ui/progress"
-import { Button } from "@/components/ui/button"
-import { ResponsiveLine } from "@nivo/line"
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { ResponsiveLine } from "@nivo/line";
+import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import { Slider } from "@/components/ui/slider"
-import { useState, useEffect } from "react"
-import { clsx } from "clsx"
+import { Slider } from "@/components/ui/slider";
+import { useState, useEffect } from "react";
+import { clsx } from "clsx";
+
+const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
 
 export default function Home() {
-  const [position, setPosition] = useState([51.505, -0.09])
+  const [position, setPosition] = useState([51.505, -0.09]);
   const [liftingSettings, setLiftingSettings] = useState({
     amountOfWater: 123345,
     liftingHeight: 123345,
     timeOfDay: { start: 5, end: 11 }
-  })
+  });
   const [distributionSettings, setDistributionSettings] = useState({
     areaOfDistribution: 123345,
     depthOfDistribution: 123345,
     timeOfDay: { start: 5, end: 11 }
-  })
+  });
   const [pressureSettings, setPressureSettings] = useState({
     amountOfWater: 123345,
     pressureRequired: 123345,
     timeOfDay: { start: 5, end: 11 }
-  })
+  });
   const [solarSettings, setSolarSettings] = useState({
     netAreaOfActiveSolarPanels: 123345,
     solarPanelEfficiency: 123345,
     timeOfDay: { start: 5, end: 11 }
-  })
+  });
 
-  
   const handlePositionChange = (newPosition: [number, number]) => {
     setPosition(newPosition);
   }
@@ -125,7 +127,6 @@ export default function Home() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
-              
             </MapContainer>
           </CardContent>
         </Card>
