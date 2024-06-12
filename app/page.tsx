@@ -172,6 +172,76 @@ export default function Home() {
                 />
               </MapContainer>
             </CardContent>
+            <div className="mt-4">
+              <Card className="bg-black p-2 md:p-4 rounded-lg">
+                <CardHeader>
+                  <CardTitle className="text-sm md:text-base text-white">
+                    Resolution Settings
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
+                    <RadioGroup
+                      row
+                      aria-label="time-resolution"
+                      name="time-resolution"
+                      value={timeResolution}
+                      onChange={(e) => setTimeResolution(e.target.value)}
+                    >
+                      <FormControlLabel
+                        value="hourly"
+                        control={<Radio />}
+                        label="Hourly"
+                        className="text-white"
+                      />
+                      <FormControlLabel
+                        value="daily"
+                        control={<Radio />}
+                        label="Daily"
+                        className="text-white"
+                      />
+                      <FormControlLabel
+                        value="monthly"
+                        control={<Radio />}
+                        label="Monthly"
+                        className="text-white"
+                      />
+                    </RadioGroup>
+                  </div>
+                  <MuiSlider
+                    value={timeRange}
+                    onChange={(e, value) => setTimeRange(value as number[])}
+                    min={0}
+                    max={24}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="w-full"
+                    sx={{
+                      color: "black",
+                      "& .MuiSlider-rail": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-track": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-thumb": {
+                        color: "blue",
+                      },
+                    }}
+                  />
+                  <div className="flex justify-between items-center mb-4 mt-2">
+                    <MuiButton
+                      variant="contained"
+                      color="primary"
+                      onClick={handleApply}
+                      className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
+                    >
+                      APPLY
+                    </MuiButton>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </Card>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:col-span-2">
@@ -217,44 +287,42 @@ export default function Home() {
                     }
                     className="text-white bg-black"
                   />
-                  <div className="flex items-center gap-2">
-                    <Label
-                      htmlFor="time-of-day-lifting"
-                      className="text-sm md:text-base text-white"
-                    >
-                      Time of Day
-                    </Label>
-                    <MuiSlider
-                      id="time-of-day-lifting"
-                      value={[
-                        liftingSettings.timeOfDay.start,
-                        liftingSettings.timeOfDay.end,
-                      ]}
-                      onChange={(e, value) =>
-                        handleSliderChange("liftingSettings", value as number[])
-                      }
-                      min={0}
-                      max={24}
-                      step={1}
-                      valueLabelDisplay="auto"
-                      className={clsx("w-full")}
-                      sx={{
+                  <Label
+                    htmlFor="lifting-time"
+                    className="text-sm md:text-base text-white"
+                  >
+                    Time of Day
+                  </Label>
+                  <MuiSlider
+                    value={[
+                      liftingSettings.timeOfDay.start,
+                      liftingSettings.timeOfDay.end,
+                    ]}
+                    onChange={(e, value) =>
+                      handleSliderChange("liftingSettings", value as number[])
+                    }
+                    min={0}
+                    max={24}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="w-full"
+                    sx={{
+                      color: "black",
+                      "& .MuiSlider-rail": {
                         color: "white",
-                        "& .MuiSlider-rail": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-track": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-thumb": {
-                          color: "blue",
-                        },
-                      }}
-                    />
-                  </div>
+                      },
+                      "& .MuiSlider-track": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-thumb": {
+                        color: "blue",
+                      },
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
+
             <Card className="bg-black p-2 md:p-4">
               <CardHeader>
                 <CardTitle className="text-sm md:text-base text-white">
@@ -264,13 +332,13 @@ export default function Home() {
               <CardContent>
                 <div className="space-y-2">
                   <Label
-                    htmlFor="area-distribution"
+                    htmlFor="distribution-area"
                     className="text-sm md:text-base text-white"
                   >
                     Area of Distribution
                   </Label>
                   <Input
-                    id="area-distribution"
+                    id="distribution-area"
                     value={distributionSettings.areaOfDistribution}
                     onChange={(e) =>
                       handleSettingsChange("distributionSettings", {
@@ -281,13 +349,13 @@ export default function Home() {
                     className="text-white bg-black"
                   />
                   <Label
-                    htmlFor="depth-distribution"
+                    htmlFor="distribution-depth"
                     className="text-sm md:text-base text-white"
                   >
                     Depth of Distribution
                   </Label>
                   <Input
-                    id="depth-distribution"
+                    id="distribution-depth"
                     value={distributionSettings.depthOfDistribution}
                     onChange={(e) =>
                       handleSettingsChange("distributionSettings", {
@@ -297,63 +365,61 @@ export default function Home() {
                     }
                     className="text-white bg-black"
                   />
-                  <div className="flex items-center gap-2">
-                    <Label
-                      htmlFor="time-of-day-distribution"
-                      className="text-sm md:text-base text-white"
-                    >
-                      Time of Day
-                    </Label>
-                    <MuiSlider
-                      id="time-of-day-distribution"
-                      value={[
-                        distributionSettings.timeOfDay.start,
-                        distributionSettings.timeOfDay.end,
-                      ]}
-                      onChange={(e, value) =>
-                        handleSliderChange(
-                          "distributionSettings",
-                          value as number[]
-                        )
-                      }
-                      min={0}
-                      max={24}
-                      step={1}
-                      valueLabelDisplay="auto"
-                      className={clsx("w-full")}
-                      sx={{
+                  <Label
+                    htmlFor="distribution-time"
+                    className="text-sm md:text-base text-white"
+                  >
+                    Time of Day
+                  </Label>
+                  <MuiSlider
+                    value={[
+                      distributionSettings.timeOfDay.start,
+                      distributionSettings.timeOfDay.end,
+                    ]}
+                    onChange={(e, value) =>
+                      handleSliderChange(
+                        "distributionSettings",
+                        value as number[]
+                      )
+                    }
+                    min={0}
+                    max={24}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="w-full"
+                    sx={{
+                      color: "black",
+                      "& .MuiSlider-rail": {
                         color: "white",
-                        "& .MuiSlider-rail": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-track": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-thumb": {
-                          color: "blue",
-                        },
-                      }}
-                    />
-                  </div>
+                      },
+                      "& .MuiSlider-track": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-thumb": {
+                        color: "blue",
+                      },
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
+
             <Card className="bg-black p-2 md:p-4">
               <CardHeader>
                 <CardTitle className="text-sm md:text-base text-white">
-                  PRESSURIZING SETTINGS
+                  PRESSURE SETTINGS
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <Label
-                    htmlFor="amount-water-pressure"
+                    htmlFor="pressure-water"
                     className="text-sm md:text-base text-white"
                   >
                     Amount of Water
                   </Label>
                   <Input
-                    id="amount-water-pressure"
+                    id="pressure-water"
                     value={pressureSettings.amountOfWater}
                     onChange={(e) =>
                       handleSettingsChange("pressureSettings", {
@@ -380,63 +446,58 @@ export default function Home() {
                     }
                     className="text-white bg-black"
                   />
-                  <div className="flex items-center gap-2">
-                    <Label
-                      htmlFor="time-of-day-pressure"
-                      className="text-sm md:text-base text-white"
-                    >
-                      Time of Day
-                    </Label>
-                    <MuiSlider
-                      id="time-of-day-pressure"
-                      value={[
-                        pressureSettings.timeOfDay.start,
-                        pressureSettings.timeOfDay.end,
-                      ]}
-                      onChange={(e, value) =>
-                        handleSliderChange(
-                          "pressureSettings",
-                          value as number[]
-                        )
-                      }
-                      min={0}
-                      max={24}
-                      step={1}
-                      valueLabelDisplay="auto"
-                      className={clsx("w-full")}
-                      sx={{
+                  <Label
+                    htmlFor="pressure-time"
+                    className="text-sm md:text-base text-white"
+                  >
+                    Time of Day
+                  </Label>
+                  <MuiSlider
+                    value={[
+                      pressureSettings.timeOfDay.start,
+                      pressureSettings.timeOfDay.end,
+                    ]}
+                    onChange={(e, value) =>
+                      handleSliderChange("pressureSettings", value as number[])
+                    }
+                    min={0}
+                    max={24}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="w-full"
+                    sx={{
+                      color: "black",
+                      "& .MuiSlider-rail": {
                         color: "white",
-                        "& .MuiSlider-rail": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-track": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-thumb": {
-                          color: "blue",
-                        },
-                      }}
-                    />
-                  </div>
+                      },
+                      "& .MuiSlider-track": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-thumb": {
+                        color: "blue",
+                      },
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
+
             <Card className="bg-black p-2 md:p-4">
               <CardHeader>
                 <CardTitle className="text-sm md:text-base text-white">
-                  SOLAR PANEL SETTINGS
+                  SOLAR SETTINGS
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <Label
-                    htmlFor="net-area"
+                    htmlFor="solar-area"
                     className="text-sm md:text-base text-white"
                   >
                     Net Area of Active Solar Panels
                   </Label>
                   <Input
-                    id="net-area"
+                    id="solar-area"
                     value={solarSettings.netAreaOfActiveSolarPanels}
                     onChange={(e) =>
                       handleSettingsChange("solarSettings", {
@@ -463,116 +524,42 @@ export default function Home() {
                     }
                     className="text-white bg-black"
                   />
-                  <div className="flex items-center gap-2">
-                    <Label
-                      htmlFor="time-of-day-solar"
-                      className="text-sm md:text-base text-white"
-                    >
-                      Time of Day
-                    </Label>
-                    <MuiSlider
-                      id="time-of-day-solar"
-                      value={[
-                        solarSettings.timeOfDay.start,
-                        solarSettings.timeOfDay.end,
-                      ]}
-                      onChange={(e, value) =>
-                        handleSliderChange("solarSettings", value as number[])
-                      }
-                      min={0}
-                      max={24}
-                      step={1}
-                      valueLabelDisplay="auto"
-                      className={clsx("w-full")}
-                      sx={{
+                  <Label
+                    htmlFor="solar-time"
+                    className="text-sm md:text-base text-white"
+                  >
+                    Time of Day
+                  </Label>
+                  <MuiSlider
+                    value={[
+                      solarSettings.timeOfDay.start,
+                      solarSettings.timeOfDay.end,
+                    ]}
+                    onChange={(e, value) =>
+                      handleSliderChange("solarSettings", value as number[])
+                    }
+                    min={0}
+                    max={24}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="w-full"
+                    sx={{
+                      color: "black",
+                      "& .MuiSlider-rail": {
                         color: "white",
-                        "& .MuiSlider-rail": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-track": {
-                          color: "white",
-                        },
-                        "& .MuiSlider-thumb": {
-                          color: "blue",
-                        },
-                      }}
-                    />
-                  </div>
+                      },
+                      "& .MuiSlider-track": {
+                        color: "white",
+                      },
+                      "& .MuiSlider-thumb": {
+                        color: "blue",
+                      },
+                    }}
+                  />
                 </div>
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        <div className="mt-4">
-          <Card className="bg-black p-2 md:p-4 rounded-lg">
-            <CardHeader>
-              <CardTitle className="text-sm md:text-base text-white">
-                Resolution Settings
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
-                <RadioGroup
-                  row
-                  aria-label="time-resolution"
-                  name="time-resolution"
-                  value={timeResolution}
-                  onChange={(e) => setTimeResolution(e.target.value)}
-                >
-                  <FormControlLabel
-                    value="hourly"
-                    control={<Radio />}
-                    label="Hourly"
-                    className="text-white"
-                  />
-                  <FormControlLabel
-                    value="daily"
-                    control={<Radio />}
-                    label="Daily"
-                    className="text-white"
-                  />
-                  <FormControlLabel
-                    value="monthly"
-                    control={<Radio />}
-                    label="Monthly"
-                    className="text-white"
-                  />
-                </RadioGroup>
-              </div>
-              <MuiSlider
-                value={timeRange}
-                onChange={(e, value) => setTimeRange(value as number[])}
-                min={0}
-                max={24}
-                step={1}
-                valueLabelDisplay="auto"
-                className="w-full"
-                sx={{
-                  color: "black",
-                  "& .MuiSlider-rail": {
-                    color: "white",
-                  },
-                  "& .MuiSlider-track": {
-                    color: "white",
-                  },
-                  "& .MuiSlider-thumb": {
-                    color: "blue",
-                  },
-                }}
-              />
-              <div className="flex justify-between items-center mb-4 mt-2">
-                <MuiButton
-                  variant="contained"
-                  color="primary"
-                  onClick={handleApply}
-                  className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
-                >
-                  APPLY
-                </MuiButton>
-              </div>
-            </CardContent>
-          </Card>
         </div>
         <div className="mt-4">
           <MuiButton
