@@ -150,37 +150,35 @@ export default function Home() {
 
   return (
     <div className="bg-black text-white min-h-screen p-4 md:p-6 lg:p-8">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl md:text-3xl font-semibold">Dashboard</h1>
-      </div>
-      <div className="bg-black text-white min-h-screen p-4 md:p-6 lg:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4">
-          <Card className="bg-black p-2 md:p-4 lg:col-span-3 rounded-lg">
-            <CardHeader>
-              <CardTitle>Map</CardTitle>
-            </CardHeader>
-            <CardContent className="h-[300px] md:h-[400px] lg:h-[500px]">
-              <MapContainer
-                center={[position[0], position[1]]}
-                zoom={13}
-                scrollWheelZoom={false}
-                style={{ height: "100%" }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-              </MapContainer>
-            </CardContent>
-            <div className="mt-4">
-              <Card className="bg-black p-2 md:p-4 rounded-lg">
-                <CardHeader>
-                  <CardTitle className="text-sm md:text-base text-white">
-                    Resolution Settings
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex space-x-2 md:space-x-4 mb-2 text-white">
+      <div className="inline-flex flex-col items-center gap-14 relative">
+        <div className="inline-flex flex-col  gap-[50px] relative ">
+          <div className="inline-flex items-center gap-[30px] relative">
+            <div className="flex flex-col w-[669px] h-[642px] items-start gap-[11px] relative">
+              <div className="relative w-[669px] h-[448px] bg-black rounded-[20px] border border-solid border-[#b2b2b2]">
+                <MapContainer
+                  center={[position[0], position[1]]}
+                  zoom={13}
+                  scrollWheelZoom={false}
+                  style={{
+                    padding: "10px",
+                    height: "100%",
+                  }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                </MapContainer>
+              </div>
+              <div className="relative w-[669px] h-[183px] bg-black rounded-[15px] border border-solid border-[#bfbfbf]">
+                {" "}
+                <Card className="bg-black  rounded-lg">
+                  <CardHeader>
+                    <CardTitle className="text-sm md:text-base text-white">
+                      Resolution Settings
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <RadioGroup
                       row
                       aria-label="time-resolution"
@@ -207,391 +205,420 @@ export default function Home() {
                         className="text-white"
                       />
                     </RadioGroup>
-                  </div>
-                  <MuiSlider
-                    value={timeRange}
-                    onChange={(e, value) => setTimeRange(value as number[])}
-                    min={0}
-                    max={24}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    className="w-full"
-                    sx={{
-                      color: "black",
-                      "& .MuiSlider-rail": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-track": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-thumb": {
+
+                    <MuiSlider
+                      value={timeRange}
+                      onChange={(e, value) => setTimeRange(value as number[])}
+                      min={0}
+                      max={24}
+                      marks={true}
+                      step={2}
+                      valueLabelDisplay="auto"
+                      className="w-full"
+                      sx={{
                         color: "blue",
-                      },
-                    }}
-                  />
-                  <div className="flex justify-between items-center mb-4 mt-2">
-                    <MuiButton
-                      variant="contained"
-                      color="primary"
-                      onClick={handleApply}
-                      className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
-                    >
-                      APPLY
-                    </MuiButton>
-                  </div>
-                </CardContent>
-              </Card>
+                        "& .MuiSlider-rail": {
+                          color: "blue",
+                        },
+                        "& .MuiSlider-track": {
+                          color: "blue",
+                        },
+                        "& .MuiSlider-thumb": {
+                          color: "blue",
+                        },
+                      }}
+                    ></MuiSlider>
+                    <div className="flex justify-between items-center">
+                      <MuiButton
+                        variant="contained"
+                        color="primary"
+                        onClick={handleApply}
+                        className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
+                      >
+                        APPLY
+                      </MuiButton>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-          </Card>
+            <div className="flex flex-wrap w-[677px] items-start gap-[30px_30px] relative">
+              <div className="relative w-[321px] h-[311px]  bg-black rounded-[20px] ">
+                <Card className="bg-black">
+                  <CardHeader>
+                    <CardTitle className="text-sm md:text-base text-white">
+                      PRESSURE SETTINGS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="pressure-water"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Amount of Water
+                      </Label>
+                      <Input
+                        id="pressure-water"
+                        value={pressureSettings.amountOfWater}
+                        onChange={(e) =>
+                          handleSettingsChange("pressureSettings", {
+                            ...pressureSettings,
+                            amountOfWater: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="pressure-required"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Pressure Required
+                      </Label>
+                      <Input
+                        id="pressure-required"
+                        value={pressureSettings.pressureRequired}
+                        onChange={(e) =>
+                          handleSettingsChange("pressureSettings", {
+                            ...pressureSettings,
+                            pressureRequired: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="pressure-time"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Time of Day
+                      </Label>
+                      <MuiSlider
+                        value={[
+                          pressureSettings.timeOfDay.start,
+                          pressureSettings.timeOfDay.end,
+                        ]}
+                        onChange={(e, value) =>
+                          handleSliderChange(
+                            "pressureSettings",
+                            value as number[]
+                          )
+                        }
+                        min={0}
+                        max={24}
+                        marks={true}
+                        step={3}
+                        valueLabelDisplay="auto"
+                        className="w-full"
+                        sx={{
+                          color: "blue",
+                          "& .MuiSlider-rail": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-track": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-thumb": {
+                            color: "blue",
+                          },
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
+                <Card className="bg-black ">
+                  <CardHeader>
+                    <CardTitle className="text-sm md:text-base text-white">
+                      SOLAR SETTINGS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="solar-area"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Net Area of Solar Panels
+                      </Label>
+                      <Input
+                        id="solar-area"
+                        value={solarSettings.netAreaOfActiveSolarPanels}
+                        onChange={(e) =>
+                          handleSettingsChange("solarSettings", {
+                            ...solarSettings,
+                            netAreaOfActiveSolarPanels: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="solar-efficiency"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Solar Panel Efficiency
+                      </Label>
+                      <Input
+                        id="solar-efficiency"
+                        value={solarSettings.solarPanelEfficiency}
+                        onChange={(e) =>
+                          handleSettingsChange("solarSettings", {
+                            ...solarSettings,
+                            solarPanelEfficiency: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="solar-time"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Time of Day
+                      </Label>
+                      <MuiSlider
+                        value={[
+                          solarSettings.timeOfDay.start,
+                          solarSettings.timeOfDay.end,
+                        ]}
+                        onChange={(e, value) =>
+                          handleSliderChange("solarSettings", value as number[])
+                        }
+                        min={0}
+                        max={24}
+                        marks={true}
+                        step={3}
+                        valueLabelDisplay="auto"
+                        className="w-full"
+                        sx={{
+                          color: "blue",
+                          "& .MuiSlider-rail": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-track": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-thumb": {
+                            color: "blue",
+                          },
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
+                <Card className="bg-black ">
+                  <CardHeader>
+                    <CardTitle className="text-sm md:text-base text-white">
+                      DISTRIBUTION SETTINGS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="distribution-area"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Area of Distribution
+                      </Label>
+                      <Input
+                        id="distribution-area"
+                        value={distributionSettings.areaOfDistribution}
+                        onChange={(e) =>
+                          handleSettingsChange("distributionSettings", {
+                            ...distributionSettings,
+                            areaOfDistribution: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="distribution-depth"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Depth of Distribution
+                      </Label>
+                      <Input
+                        id="distribution-depth"
+                        value={distributionSettings.depthOfDistribution}
+                        onChange={(e) =>
+                          handleSettingsChange("distributionSettings", {
+                            ...distributionSettings,
+                            depthOfDistribution: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="distribution-time"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Time of Day
+                      </Label>
+                      <MuiSlider
+                        value={[
+                          distributionSettings.timeOfDay.start,
+                          distributionSettings.timeOfDay.end,
+                        ]}
+                        onChange={(e, value) =>
+                          handleSliderChange(
+                            "distributionSettings",
+                            value as number[]
+                          )
+                        }
+                        min={0}
+                        max={24}
+                        marks={true}
+                        step={3}
+                        valueLabelDisplay="auto"
+                        className="w-full"
+                        sx={{
+                          color: "blue",
+                          "& .MuiSlider-rail": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-track": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-thumb": {
+                            color: "blue",
+                          },
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
+                <Card className="bg-black ">
+                  <CardHeader>
+                    <CardTitle className="text-sm md:text-base text-white">
+                      LIFTING SETTINGS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="amount-water"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Amount of Water
+                      </Label>
+                      <Input
+                        id="amount-water"
+                        value={liftingSettings.amountOfWater}
+                        onChange={(e) =>
+                          handleSettingsChange("liftingSettings", {
+                            ...liftingSettings,
+                            amountOfWater: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      ></Input>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:col-span-2">
-            <Card className="bg-black p-2 md:p-4">
-              <CardHeader>
-                <CardTitle className="text-sm md:text-base text-white">
-                  LIFTING SETTINGS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="amount-water"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Amount of Water
-                  </Label>
-                  <Input
-                    id="amount-water"
-                    value={liftingSettings.amountOfWater}
-                    onChange={(e) =>
-                      handleSettingsChange("liftingSettings", {
-                        ...liftingSettings,
-                        amountOfWater: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="lifting-height"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Lifting Height
-                  </Label>
-                  <Input
-                    id="lifting-height"
-                    value={liftingSettings.liftingHeight}
-                    onChange={(e) =>
-                      handleSettingsChange("liftingSettings", {
-                        ...liftingSettings,
-                        liftingHeight: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="lifting-time"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Time of Day
-                  </Label>
-                  <MuiSlider
-                    value={[
-                      liftingSettings.timeOfDay.start,
-                      liftingSettings.timeOfDay.end,
-                    ]}
-                    onChange={(e, value) =>
-                      handleSliderChange("liftingSettings", value as number[])
-                    }
-                    min={0}
-                    max={24}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    className="w-full"
-                    sx={{
-                      color: "black",
-                      "& .MuiSlider-rail": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-track": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-thumb": {
-                        color: "blue",
-                      },
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+                      <Label
+                        htmlFor="lifting-height"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Lifting Height
+                      </Label>
+                      <Input
+                        id="lifting-height"
+                        value={liftingSettings.liftingHeight}
+                        onChange={(e) =>
+                          handleSettingsChange("liftingSettings", {
+                            ...liftingSettings,
+                            liftingHeight: Number(e.target.value),
+                          })
+                        }
+                        className="text-white bg-black"
+                      />
+                      <Label
+                        htmlFor="lifting-time"
+                        className="text-sm md:text-base text-white"
+                      >
+                        Time of Day
+                      </Label>
+                      <MuiSlider
+                        value={[
+                          liftingSettings.timeOfDay.start,
+                          liftingSettings.timeOfDay.end,
+                        ]}
+                        onChange={(e, value) =>
+                          handleSliderChange(
+                            "liftingSettings",
+                            value as number[]
+                          )
+                        }
+                        min={0}
+                        max={24}
+                        marks={true}
+                        step={3}
+                        valueLabelDisplay="auto"
+                        className="w-full"
+                        sx={{
+                          color: "blue",
+                          "& .MuiSlider-rail": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-track": {
+                            color: "blue",
+                          },
+                          "& .MuiSlider-thumb": {
+                            color: "blue",
+                          },
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
 
-            <Card className="bg-black p-2 md:p-4">
-              <CardHeader>
-                <CardTitle className="text-sm md:text-base text-white">
-                  DISTRIBUTION SETTINGS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="distribution-area"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Area of Distribution
-                  </Label>
-                  <Input
-                    id="distribution-area"
-                    value={distributionSettings.areaOfDistribution}
-                    onChange={(e) =>
-                      handleSettingsChange("distributionSettings", {
-                        ...distributionSettings,
-                        areaOfDistribution: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="distribution-depth"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Depth of Distribution
-                  </Label>
-                  <Input
-                    id="distribution-depth"
-                    value={distributionSettings.depthOfDistribution}
-                    onChange={(e) =>
-                      handleSettingsChange("distributionSettings", {
-                        ...distributionSettings,
-                        depthOfDistribution: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="distribution-time"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Time of Day
-                  </Label>
-                  <MuiSlider
-                    value={[
-                      distributionSettings.timeOfDay.start,
-                      distributionSettings.timeOfDay.end,
-                    ]}
-                    onChange={(e, value) =>
-                      handleSliderChange(
-                        "distributionSettings",
-                        value as number[]
-                      )
-                    }
-                    min={0}
-                    max={24}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    className="w-full"
-                    sx={{
-                      color: "black",
-                      "& .MuiSlider-rail": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-track": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-thumb": {
-                        color: "blue",
-                      },
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-black p-2 md:p-4">
-              <CardHeader>
-                <CardTitle className="text-sm md:text-base text-white">
-                  PRESSURE SETTINGS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="pressure-water"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Amount of Water
-                  </Label>
-                  <Input
-                    id="pressure-water"
-                    value={pressureSettings.amountOfWater}
-                    onChange={(e) =>
-                      handleSettingsChange("pressureSettings", {
-                        ...pressureSettings,
-                        amountOfWater: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="pressure-required"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Pressure Required
-                  </Label>
-                  <Input
-                    id="pressure-required"
-                    value={pressureSettings.pressureRequired}
-                    onChange={(e) =>
-                      handleSettingsChange("pressureSettings", {
-                        ...pressureSettings,
-                        pressureRequired: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="pressure-time"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Time of Day
-                  </Label>
-                  <MuiSlider
-                    value={[
-                      pressureSettings.timeOfDay.start,
-                      pressureSettings.timeOfDay.end,
-                    ]}
-                    onChange={(e, value) =>
-                      handleSliderChange("pressureSettings", value as number[])
-                    }
-                    min={0}
-                    max={24}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    className="w-full"
-                    sx={{
-                      color: "black",
-                      "& .MuiSlider-rail": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-track": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-thumb": {
-                        color: "blue",
-                      },
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-black p-2 md:p-4">
-              <CardHeader>
-                <CardTitle className="text-sm md:text-base text-white">
-                  SOLAR SETTINGS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="solar-area"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Net Area of Active Solar Panels
-                  </Label>
-                  <Input
-                    id="solar-area"
-                    value={solarSettings.netAreaOfActiveSolarPanels}
-                    onChange={(e) =>
-                      handleSettingsChange("solarSettings", {
-                        ...solarSettings,
-                        netAreaOfActiveSolarPanels: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="solar-efficiency"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Solar Panel Efficiency
-                  </Label>
-                  <Input
-                    id="solar-efficiency"
-                    value={solarSettings.solarPanelEfficiency}
-                    onChange={(e) =>
-                      handleSettingsChange("solarSettings", {
-                        ...solarSettings,
-                        solarPanelEfficiency: Number(e.target.value),
-                      })
-                    }
-                    className="text-white bg-black"
-                  />
-                  <Label
-                    htmlFor="solar-time"
-                    className="text-sm md:text-base text-white"
-                  >
-                    Time of Day
-                  </Label>
-                  <MuiSlider
-                    value={[
-                      solarSettings.timeOfDay.start,
-                      solarSettings.timeOfDay.end,
-                    ]}
-                    onChange={(e, value) =>
-                      handleSliderChange("solarSettings", value as number[])
-                    }
-                    min={0}
-                    max={24}
-                    step={1}
-                    valueLabelDisplay="auto"
-                    className="w-full"
-                    sx={{
-                      color: "black",
-                      "& .MuiSlider-rail": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-track": {
-                        color: "white",
-                      },
-                      "& .MuiSlider-thumb": {
-                        color: "blue",
-                      },
-                    }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
+          <div className="inline-flex flex-col items-start gap-[19px] relative flex-[0_0_auto]">
+            <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Cloud</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Solar Radiation</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Power Generated</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+            </div>
+            <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Net Demand</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Deficit</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
+                <Card className="p-2 bg-black rounded-lg border border-white">
+                  <div className="text-white mb-3">Buying/Selling</div>
+                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-4">
-          <MuiButton
-            variant="contained"
-            onClick={handleApply}
-            className="w-full md:w-auto"
-          >
-            Apply Settings
-          </MuiButton>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
-        <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
-          <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
-        </Card>
       </div>
     </div>
   );
@@ -605,23 +632,23 @@ function LineChart({ className }: { className: string }) {
           {
             id: "Desktop",
             data: [
-              { x: "Jan", y: 43 },
-              { x: "Feb", y: 137 },
-              { x: "Mar", y: 61 },
-              { x: "Apr", y: 145 },
-              { x: "May", y: 26 },
-              { x: "Jun", y: 154 },
+              { x: "0", y: 43 },
+              { x: "20", y: 137 },
+              { x: "40", y: 61 },
+              { x: "60", y: 145 },
+              { x: "80", y: 26 },
+              { x: "100", y: 154 },
             ],
           },
           {
             id: "Mobile",
             data: [
-              { x: "Jan", y: 60 },
-              { x: "Feb", y: 48 },
-              { x: "Mar", y: 177 },
-              { x: "Apr", y: 78 },
-              { x: "May", y: 96 },
-              { x: "Jun", y: 204 },
+              { x: "0", y: 60 },
+              { x: "20", y: 48 },
+              { x: "40", y: 177 },
+              { x: "60", y: 78 },
+              { x: "80", y: 96 },
+              { x: "100", y: 204 },
             ],
           },
         ]}
@@ -635,16 +662,17 @@ function LineChart({ className }: { className: string }) {
         axisTop={null}
         axisRight={null}
         axisBottom={{
-          tickSize: 0,
+          tickSize: 5,
           tickPadding: 16,
         }}
         axisLeft={{
-          tickSize: 0,
+          tickSize: 5,
           tickValues: 5,
           tickPadding: 16,
         }}
-        colors={["#2563eb", "#e11d48"]}
-        pointSize={6}
+        colors={["#D500F9", "#26A69A"]}
+        pointSize={12}
+        pointColor={"#ffffff"}
         useMesh={true}
         gridYValues={6}
         theme={{
