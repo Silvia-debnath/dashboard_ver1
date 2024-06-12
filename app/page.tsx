@@ -149,10 +149,11 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen p-4 md:p-6 lg:p-8">
-      <div className="inline-flex flex-col items-center gap-14 relative">
-        <div className="inline-flex flex-col  gap-[50px] relative ">
-          <div className="inline-flex items-center gap-[30px] relative">
+    <div className="bg-black text-white min-h-screen p-8 md:p-6 lg:p-8">
+      <div className="inline-flex flex-col justify-center items-center gap-14 relative ml-3">
+        <div className="inline-flex flex-col  gap-[50px] relative ml-4 ">
+         <div className="text-white text-3xl ml-2 mt-2">Dashboard</div>
+          <div className="inline-flex justify-center items-center gap-[30px] relative">
             <div className="flex flex-col w-[669px] h-[642px] items-start gap-[11px] relative">
               <div className="relative w-[669px] h-[448px] bg-black rounded-[20px] border border-solid border-[#b2b2b2]">
                 <MapContainer
@@ -162,6 +163,7 @@ export default function Home() {
                   style={{
                     padding: "10px",
                     height: "100%",
+                    borderRadius : "20px",
                   }}
                 >
                   <TileLayer
@@ -174,7 +176,7 @@ export default function Home() {
                 {" "}
                 <Card className="bg-black  rounded-lg">
                   <CardHeader>
-                    <CardTitle className="text-sm md:text-base text-white">
+                    <CardTitle className=" flex items-center justify-center text-center text-sm md:text-base text-white">
                       Resolution Settings
                     </CardTitle>
                   </CardHeader>
@@ -205,26 +207,26 @@ export default function Home() {
                         className="text-white"
                       />
                     </RadioGroup>
-
+<div className="flex mb-4">
                     <MuiSlider
                       value={timeRange}
                       onChange={(e, value) => setTimeRange(value as number[])}
                       min={0}
-                      max={24}
+                      max={23}
                       marks={true}
                       step={2}
                       valueLabelDisplay="auto"
                       className="w-full"
                       sx={{
-                        color: "blue",
+                        color: "#2196F3",
                         "& .MuiSlider-rail": {
-                          color: "blue",
+                          color: "#2196F3",
                         },
                         "& .MuiSlider-track": {
-                          color: "blue",
+                          color: "#2196F3",
                         },
                         "& .MuiSlider-thumb": {
-                          color: "blue",
+                          color: "#2196F3",
                         },
                       }}
                     ></MuiSlider>
@@ -233,10 +235,11 @@ export default function Home() {
                         variant="contained"
                         color="primary"
                         onClick={handleApply}
-                        className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm"
+                        className="text-white bg-blue-500 hover:bg-blue-600 text-xs md:text-sm ml-4"
                       >
                         APPLY
                       </MuiButton>
+                    </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -246,8 +249,8 @@ export default function Home() {
               <div className="relative w-[321px] h-[311px]  bg-black rounded-[20px] ">
                 <Card className="bg-black">
                   <CardHeader>
-                    <CardTitle className="text-sm md:text-base text-white">
-                      PRESSURE SETTINGS
+                    <CardTitle className="flex items-center justify-center text-sm md:text-base text-white">
+                      LIFTING SETTINGS
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -258,6 +261,7 @@ export default function Home() {
                       >
                         Amount of Water
                       </Label>
+                      <div  className="flex">
                       <Input
                         id="pressure-water"
                         value={pressureSettings.amountOfWater}
@@ -267,14 +271,16 @@ export default function Home() {
                             amountOfWater: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
+                        className="text-white bg-black w-4/5"
+                      /> <div className="text-white ml-5 mt-2">ltrs.</div>
+                      </div>
                       <Label
                         htmlFor="pressure-required"
                         className="text-sm md:text-base text-white"
                       >
-                        Pressure Required
+                        Lifting Height
                       </Label>
+                      <div className="flex">
                       <Input
                         id="pressure-required"
                         value={pressureSettings.pressureRequired}
@@ -284,8 +290,9 @@ export default function Home() {
                             pressureRequired: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
+                        className="text-white bg-black w-4/5"
+                      /><div className="text-white ml-5 mt-2">ft.</div>
+                      </div>
                       <Label
                         htmlFor="pressure-time"
                         className="text-sm md:text-base text-white"
@@ -310,15 +317,15 @@ export default function Home() {
                         valueLabelDisplay="auto"
                         className="w-full"
                         sx={{
-                          color: "blue",
+                          color: "#2196F3",
                           "& .MuiSlider-rail": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-track": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-thumb": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                         }}
                       />
@@ -329,8 +336,8 @@ export default function Home() {
               <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
                 <Card className="bg-black ">
                   <CardHeader>
-                    <CardTitle className="text-sm md:text-base text-white">
-                      SOLAR SETTINGS
+                    <CardTitle className="flex items-center justify-center text-sm md:text-base text-white">
+                      DISTRIBUTION SETTINGS
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -339,8 +346,9 @@ export default function Home() {
                         htmlFor="solar-area"
                         className="text-sm md:text-base text-white"
                       >
-                        Net Area of Solar Panels
+                        Area of Distribution
                       </Label>
+                      <div className="flex">
                       <Input
                         id="solar-area"
                         value={solarSettings.netAreaOfActiveSolarPanels}
@@ -350,14 +358,17 @@ export default function Home() {
                             netAreaOfActiveSolarPanels: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
+                        className="text-white bg-black w-4/5"
                       />
+                      <div className="text-white ml-5 mt-2">km</div>
+                      </div>
                       <Label
                         htmlFor="solar-efficiency"
                         className="text-sm md:text-base text-white"
                       >
-                        Solar Panel Efficiency
+                        Depth of Distribution
                       </Label>
+                      <div className="flex">
                       <Input
                         id="solar-efficiency"
                         value={solarSettings.solarPanelEfficiency}
@@ -367,8 +378,9 @@ export default function Home() {
                             solarPanelEfficiency: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
+                        className="text-white bg-black w-4/5"
+                      /><div className="text-white ml-5 mt-2">ft.</div>
+                      </div>
                       <Label
                         htmlFor="solar-time"
                         className="text-sm md:text-base text-white"
@@ -390,15 +402,15 @@ export default function Home() {
                         valueLabelDisplay="auto"
                         className="w-full"
                         sx={{
-                          color: "blue",
+                          color: "#2196F3",
                           "& .MuiSlider-rail": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-track": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-thumb": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                         }}
                       />
@@ -409,8 +421,8 @@ export default function Home() {
               <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
                 <Card className="bg-black ">
                   <CardHeader>
-                    <CardTitle className="text-sm md:text-base text-white">
-                      DISTRIBUTION SETTINGS
+                    <CardTitle className="flex items-center justify-center text-sm md:text-base text-white">
+                      PRESSURIZATION SETTINGS
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -419,8 +431,9 @@ export default function Home() {
                         htmlFor="distribution-area"
                         className="text-sm md:text-base text-white"
                       >
-                        Area of Distribution
+                        Amount of water
                       </Label>
+                      <div className="flex">
                       <Input
                         id="distribution-area"
                         value={distributionSettings.areaOfDistribution}
@@ -430,14 +443,16 @@ export default function Home() {
                             areaOfDistribution: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
+                        className="text-white bg-black w-4/5"
+                      /><div className="text-white ml-5 mt-2">ltrs.</div>
+                      </div>
                       <Label
                         htmlFor="distribution-depth"
                         className="text-sm md:text-base text-white"
                       >
-                        Depth of Distribution
+                        Pressurization required
                       </Label>
+                      <div className="flex">
                       <Input
                         id="distribution-depth"
                         value={distributionSettings.depthOfDistribution}
@@ -447,8 +462,9 @@ export default function Home() {
                             depthOfDistribution: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
+                        className="text-white bg-black w-4/5"
+                      /><div className="text-white ml-5 mt-2">ft.</div>
+                      </div>
                       <Label
                         htmlFor="distribution-time"
                         className="text-sm md:text-base text-white"
@@ -473,15 +489,15 @@ export default function Home() {
                         valueLabelDisplay="auto"
                         className="w-full"
                         sx={{
-                          color: "blue",
+                          color: "#2196F3",
                           "& .MuiSlider-rail": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-track": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                           "& .MuiSlider-thumb": {
-                            color: "blue",
+                            color: "#2196F3",
                           },
                         }}
                       />
@@ -490,20 +506,21 @@ export default function Home() {
                 </Card>
               </div>
               <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
-                <Card className="bg-black ">
+                <Card className="bg-black">
                   <CardHeader>
-                    <CardTitle className="text-sm md:text-base text-white">
-                      LIFTING SETTINGS
+                    <CardTitle className="flex items-center justify-center text-sm md:text-base text-white mt-2.5">
+                      SOLAR PANEL SETTINGS
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2">
+                    <div className="space-y-6">
                       <Label
                         htmlFor="amount-water"
                         className="text-sm md:text-base text-white"
                       >
-                        Amount of Water
+                        Net Area of Active Solar Panels
                       </Label>
+                      <div className="flex">
                       <Input
                         id="amount-water"
                         value={liftingSettings.amountOfWater}
@@ -513,15 +530,17 @@ export default function Home() {
                             amountOfWater: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      ></Input>
+                        className="text-white bg-black w-4/5"
+                      ></Input><div className="text-white ml-5 mt-2">m³</div>
+                      </div>
 
                       <Label
                         htmlFor="lifting-height"
                         className="text-sm md:text-base text-white"
                       >
-                        Lifting Height
+                        Solar Panel Efficiency
                       </Label>
+                      <div className="flex">
                       <Input
                         id="lifting-height"
                         value={liftingSettings.liftingHeight}
@@ -531,44 +550,11 @@ export default function Home() {
                             liftingHeight: Number(e.target.value),
                           })
                         }
-                        className="text-white bg-black"
-                      />
-                      <Label
-                        htmlFor="lifting-time"
-                        className="text-sm md:text-base text-white"
-                      >
-                        Time of Day
-                      </Label>
-                      <MuiSlider
-                        value={[
-                          liftingSettings.timeOfDay.start,
-                          liftingSettings.timeOfDay.end,
-                        ]}
-                        onChange={(e, value) =>
-                          handleSliderChange(
-                            "liftingSettings",
-                            value as number[]
-                          )
-                        }
-                        min={0}
-                        max={24}
-                        marks={true}
-                        step={3}
-                        valueLabelDisplay="auto"
-                        className="w-full"
-                        sx={{
-                          color: "blue",
-                          "& .MuiSlider-rail": {
-                            color: "blue",
-                          },
-                          "& .MuiSlider-track": {
-                            color: "blue",
-                          },
-                          "& .MuiSlider-thumb": {
-                            color: "blue",
-                          },
-                        }}
-                      />
+                        className="text-white bg-black w-4/5"
+                      /><div className="text-white ml-5 mt-2">%</div>
+                      </div>
+                      <div className="mt-80"></div>
+                      
                     </div>
                   </CardContent>
                 </Card>
@@ -633,11 +619,11 @@ function LineChart({ className }: { className: string }) {
             id: "Desktop",
             data: [
               { x: "0", y: 43 },
-              { x: "20", y: 137 },
+              { x: "20", y: 13 },
               { x: "40", y: 61 },
-              { x: "60", y: 145 },
+              { x: "60", y: 45 },
               { x: "80", y: 26 },
-              { x: "100", y: 154 },
+              { x: "100", y: 100 },
             ],
           },
           {
@@ -645,10 +631,10 @@ function LineChart({ className }: { className: string }) {
             data: [
               { x: "0", y: 60 },
               { x: "20", y: 48 },
-              { x: "40", y: 177 },
+              { x: "40", y: 17},
               { x: "60", y: 78 },
-              { x: "80", y: 96 },
-              { x: "100", y: 204 },
+              { x: "80", y: 66 },
+              { x: "100", y: 100 },
             ],
           },
         ]}
@@ -667,14 +653,14 @@ function LineChart({ className }: { className: string }) {
         }}
         axisLeft={{
           tickSize: 5,
-          tickValues: 5,
+          tickValues: 6,
           tickPadding: 16,
         }}
         colors={["#D500F9", "#26A69A"]}
         pointSize={12}
         pointColor={"#ffffff"}
         useMesh={true}
-        gridYValues={6}
+        gridYValues={1}
         theme={{
           axis: {
             ticks: {
@@ -695,7 +681,7 @@ function LineChart({ className }: { className: string }) {
           },
           grid: {
             line: {
-              stroke: "#f3f4f6",
+              stroke: "#FFFFFF",
             },
           },
         }}
