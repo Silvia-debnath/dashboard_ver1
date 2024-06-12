@@ -159,7 +159,7 @@ export default function Home() {
             <CardHeader>
               <CardTitle>Map</CardTitle>
             </CardHeader>
-            <CardContent className="h-[300px] md:h-[400px] lg:h-[500px]">
+            <CardContent className="h-[200px] md:h-[200px] lg:h-[500px]">
               <MapContainer
                 center={[position[0], position[1]]}
                 zoom={13}
@@ -213,22 +213,23 @@ export default function Home() {
                     onChange={(e, value) => setTimeRange(value as number[])}
                     min={0}
                     max={24}
-                    step={1}
+                    marks={true}
+                    step={2}
                     valueLabelDisplay="auto"
                     className="w-full"
                     sx={{
-                      color: "black",
+                      color: "blue",
                       "& .MuiSlider-rail": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-track": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-thumb": {
                         color: "blue",
                       },
                     }}
-                  />
+                  ></MuiSlider>
                   <div className="flex justify-between items-center mb-4 mt-2">
                     <MuiButton
                       variant="contained"
@@ -269,7 +270,8 @@ export default function Home() {
                       })
                     }
                     className="text-white bg-black"
-                  />
+                  ></Input>
+
                   <Label
                     htmlFor="lifting-height"
                     className="text-sm md:text-base text-white"
@@ -303,16 +305,17 @@ export default function Home() {
                     }
                     min={0}
                     max={24}
-                    step={1}
+                    marks={true}
+                    step={3}
                     valueLabelDisplay="auto"
                     className="w-full"
                     sx={{
-                      color: "black",
+                      color: "blue",
                       "& .MuiSlider-rail": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-track": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-thumb": {
                         color: "blue",
@@ -384,16 +387,17 @@ export default function Home() {
                     }
                     min={0}
                     max={24}
-                    step={1}
+                    marks={true}
+                    step={3}
                     valueLabelDisplay="auto"
                     className="w-full"
                     sx={{
-                      color: "black",
+                      color: "blue",
                       "& .MuiSlider-rail": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-track": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-thumb": {
                         color: "blue",
@@ -462,16 +466,17 @@ export default function Home() {
                     }
                     min={0}
                     max={24}
-                    step={1}
+                    marks={true}
+                    step={3}
                     valueLabelDisplay="auto"
                     className="w-full"
                     sx={{
-                      color: "black",
+                      color: "blue",
                       "& .MuiSlider-rail": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-track": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-thumb": {
                         color: "blue",
@@ -540,16 +545,17 @@ export default function Home() {
                     }
                     min={0}
                     max={24}
-                    step={1}
+                    marks={true}
+                    step={3}
                     valueLabelDisplay="auto"
                     className="w-full"
                     sx={{
-                      color: "black",
+                      color: "blue",
                       "& .MuiSlider-rail": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-track": {
-                        color: "white",
+                        color: "blue",
                       },
                       "& .MuiSlider-thumb": {
                         color: "blue",
@@ -561,35 +567,33 @@ export default function Home() {
             </Card>
           </div>
         </div>
-        <div className="mt-4">
-          <MuiButton
-            variant="contained"
-            onClick={handleApply}
-            className="w-full md:w-auto"
-          >
-            Apply Settings
-          </MuiButton>
-        </div>
+        <div className="mt-4"></div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Cloud</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Solar Radiation</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Power Generated</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Net Demand</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Deficit</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
         <Card className="bg-black p-2 md:p-4 rounded-lg border border-white">
+          <div className="text-white mb-3">Buying/Selling</div>
           <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
         </Card>
       </div>
@@ -605,23 +609,23 @@ function LineChart({ className }: { className: string }) {
           {
             id: "Desktop",
             data: [
-              { x: "Jan", y: 43 },
-              { x: "Feb", y: 137 },
-              { x: "Mar", y: 61 },
-              { x: "Apr", y: 145 },
-              { x: "May", y: 26 },
-              { x: "Jun", y: 154 },
+              { x: "0", y: 43 },
+              { x: "20", y: 137 },
+              { x: "40", y: 61 },
+              { x: "60", y: 145 },
+              { x: "80", y: 26 },
+              { x: "100", y: 154 },
             ],
           },
           {
             id: "Mobile",
             data: [
-              { x: "Jan", y: 60 },
-              { x: "Feb", y: 48 },
-              { x: "Mar", y: 177 },
-              { x: "Apr", y: 78 },
-              { x: "May", y: 96 },
-              { x: "Jun", y: 204 },
+              { x: "0", y: 60 },
+              { x: "20", y: 48 },
+              { x: "40", y: 177 },
+              { x: "60", y: 78 },
+              { x: "80", y: 96 },
+              { x: "100", y: 204 },
             ],
           },
         ]}
@@ -635,16 +639,17 @@ function LineChart({ className }: { className: string }) {
         axisTop={null}
         axisRight={null}
         axisBottom={{
-          tickSize: 0,
+          tickSize: 5,
           tickPadding: 16,
         }}
         axisLeft={{
-          tickSize: 0,
+          tickSize: 5,
           tickValues: 5,
           tickPadding: 16,
         }}
-        colors={["#2563eb", "#e11d48"]}
-        pointSize={6}
+        colors={["#D500F9", "#26A69A"]}
+        pointSize={12}
+        pointColor={"#ffffff"}
         useMesh={true}
         gridYValues={6}
         theme={{
