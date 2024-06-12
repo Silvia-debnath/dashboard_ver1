@@ -566,19 +566,19 @@ export default function Home() {
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Cloud</div>
+                  <div className="text-white mb-3">Soil Moisture</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Solar Radiation</div>
+                  <div className="text-white mb-3">Evapotranspiration</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Power Generated</div>
+                  <div className="text-white mb-3">Water Demand</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
@@ -586,19 +586,19 @@ export default function Home() {
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Net Demand</div>
+                  <div className="text-white mb-3">Power Demand</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Deficit</div>
+                  <div className="text-white mb-3">Surplus Power</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
               <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
                 <Card className="p-2 bg-black rounded-lg border border-white">
-                  <div className="text-white mb-3">Buying/Selling</div>
+                  <div className="text-white mb-3">Irrigation Schedule</div>
                   <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
                 </Card>
               </div>
