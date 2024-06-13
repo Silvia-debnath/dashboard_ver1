@@ -19,7 +19,8 @@ import { ResponsiveLine } from "@nivo/line";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
-import { clsx } from "clsx";
+import { useTheme } from "@mui/material/styles";
+import { ResponsiveLineCanvas } from "@nivo/line";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -734,42 +735,42 @@ export default function Home() {
 
           <div className="inline-flex flex-col items-start gap-[19px] relative flex-[0_0_auto]">
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Soil Moisture</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Evapotranspiration</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Water Demand</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
             </div>
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Power Demand</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Surplus Power</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
-              <div className="relative w-[450px] h-[299px] bg-black rounded-[13.94px] ">
-                <Card className="p-2 bg-black rounded-lg border border-white">
+              <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
                   <div className="text-white mb-3">Irrigation Schedule</div>
-                  <LineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" />
+                  <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
             </div>
@@ -780,34 +781,38 @@ export default function Home() {
   );
 }
 
-function LineChart({ className }: { className: string }) {
+function MuiLineChart({ className, isDarkMode }: { className: string; isDarkMode: boolean }) {
+  const theme = useTheme();
+
+  const data = [
+    {
+      id: "Desktop",
+      data: [
+        { x: "0", y: 43 },
+        { x: "20", y: 13 },
+        { x: "40", y: 61 },
+        { x: "60", y: 45 },
+        { x: "80", y: 26 },
+        { x: "100", y: 100 },
+      ],
+    },
+    {
+      id: "Mobile",
+      data: [
+        { x: "0", y: 60 },
+        { x: "20", y: 48 },
+        { x: "40", y: 17 },
+        { x: "60", y: 78 },
+        { x: "80", y: 66 },
+        { x: "100", y: 100 },
+      ],
+    },
+  ];
+
   return (
     <div className={className}>
-      <ResponsiveLine
-        data={[
-          {
-            id: "Desktop",
-            data: [
-              { x: "0", y: 43 },
-              { x: "20", y: 13 },
-              { x: "40", y: 61 },
-              { x: "60", y: 45 },
-              { x: "80", y: 26 },
-              { x: "100", y: 100 },
-            ],
-          },
-          {
-            id: "Mobile",
-            data: [
-              { x: "0", y: 60 },
-              { x: "20", y: 48 },
-              { x: "40", y: 17 },
-              { x: "60", y: 78 },
-              { x: "80", y: 66 },
-              { x: "100", y: 100 },
-            ],
-          },
-        ]}
+      <ResponsiveLineCanvas
+        data={data}
         margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
         xScale={{
           type: "point",
@@ -820,6 +825,7 @@ function LineChart({ className }: { className: string }) {
         axisBottom={{
           tickSize: 5,
           tickPadding: 16,
+          tickValues: 6,
         }}
         axisLeft={{
           tickSize: 5,
@@ -829,13 +835,13 @@ function LineChart({ className }: { className: string }) {
         colors={["#D500F9", "#26A69A"]}
         pointSize={12}
         pointColor={"#ffffff"}
-        useMesh={true}
+
         gridYValues={1}
         theme={{
           axis: {
             ticks: {
               text: {
-                fill: "#ffffff", // Set tick text color to white
+                fill: theme.palette.text.primary,
               },
             },
           },
@@ -851,11 +857,11 @@ function LineChart({ className }: { className: string }) {
           },
           grid: {
             line: {
-              stroke: "#FFFFFF",
+              stroke: theme.palette.text.primary,
             },
           },
         }}
-        role="application"
+       
       />
     </div>
   );
