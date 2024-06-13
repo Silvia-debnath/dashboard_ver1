@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   TextField,
   Switch,
+  colors,
 } from "@mui/material";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -176,7 +177,7 @@ export default function Home() {
     >
       <div className="inline-flex flex-col justify-center items-center gap-14 relative ml-3">
         <div className="inline-flex flex-row justify-between items-center w-full">
-          <div className="text-3xl ml-2 mt-2">Dashboard</div>
+          <div className="text-3xl ml-2 mt-2">UmidaAg</div>
           <Switch
             checked={isDarkMode}
             onChange={toggleDarkMode}
@@ -669,7 +670,7 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </div>
-              <div className="relative w-[321px] h-[311px] bg-black rounded-[20px] border border-solid border-[#ffffffb2]">
+              <div className="relative w-[321px] h-[311px] rounded-[20px]">
                 <Card className={`${isDarkMode ? "bg-black" : "bg-white"}`}>
                   <CardHeader>
                     <CardTitle className={`flex items-center justify-center text-sm md:text-base ${isDarkMode ? "text-white" : "text-black"
@@ -736,40 +737,40 @@ export default function Home() {
           <div className="inline-flex flex-col items-start gap-[19px] relative flex-[0_0_auto]">
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Soil Moisture</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Soil Moisture</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Evapotranspiration</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Evapotranspiration</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Water Demand</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Water Demand</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
             </div>
             <div className="inline-flex items-start gap-[18px] relative flex-[0_0_auto]">
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Power Demand</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Power Demand</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Surplus Power</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Surplus Power</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
               <div className={`${isDarkMode ? "bg-black" : "bg-white"} relative w-[450px] h-[299px] rounded-[13.94px]`}>
-                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-black"} p-2 rounded-lg border border-white`}>
-                  <div className="text-white mb-3">Irrigation Schedule</div>
+                <Card className={`${isDarkMode ? "bg-black border-white" : "bg-white border-slate-200"} p-2 rounded-lg`}>
+                  <div className={`mb-3 ${isDarkMode ? "text-white" : "text-black"}`}>Irrigation Schedule</div>
                   <MuiLineChart className="w-full h-[150px] md:h-[200px] lg:h-[250px]" isDarkMode={isDarkMode} />
                 </Card>
               </div>
@@ -783,6 +784,31 @@ export default function Home() {
 
 function MuiLineChart({ className, isDarkMode }: { className: string; isDarkMode: boolean }) {
   const theme = useTheme();
+
+  const customTheme = {
+    axis: {
+      ticks: {
+        text: {
+          fill: isDarkMode ? 'white' : theme.palette.text.primary,
+        },
+      },
+    },
+    tooltip: {
+      chip: {
+        borderRadius: "9999px",
+      },
+      container: {
+        fontSize: "12px",
+        textTransform: "capitalize",
+        borderRadius: "6px",
+      },
+    },
+    grid: {
+      line: {
+        stroke: isDarkMode ? 'gray' : theme.palette.text.primary, // Adjust grid line color based on theme
+      },
+    },
+  };
 
   const data = [
     {
@@ -835,32 +861,10 @@ function MuiLineChart({ className, isDarkMode }: { className: string; isDarkMode
         colors={["#D500F9", "#26A69A"]}
         pointSize={12}
         pointColor={"#ffffff"}
-
+        pointBorderColor={colors}
+        pointBorderWidth={1}
         gridYValues={1}
-        theme={{
-          axis: {
-            ticks: {
-              text: {
-                fill: theme.palette.text.primary,
-              },
-            },
-          },
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-          grid: {
-            line: {
-              stroke: theme.palette.text.primary,
-            },
-          },
-        }}
+        theme={customTheme}
        
       />
     </div>
