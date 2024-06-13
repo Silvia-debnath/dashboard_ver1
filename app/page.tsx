@@ -783,32 +783,8 @@ export default function Home() {
 }
 
 function MuiLineChart({ className, isDarkMode }: { className: string; isDarkMode: boolean }) {
+  
   const theme = useTheme();
-
-  const customTheme = {
-    axis: {
-      ticks: {
-        text: {
-          fill: isDarkMode ? 'white' : theme.palette.text.primary,
-        },
-      },
-    },
-    tooltip: {
-      chip: {
-        borderRadius: "9999px",
-      },
-      container: {
-        fontSize: "12px",
-        textTransform: "capitalize",
-        borderRadius: "6px",
-      },
-    },
-    grid: {
-      line: {
-        stroke: isDarkMode ? 'gray' : theme.palette.text.primary, // Adjust grid line color based on theme
-      },
-    },
-  };
 
   const data = [
     {
@@ -864,8 +840,32 @@ function MuiLineChart({ className, isDarkMode }: { className: string; isDarkMode
         pointBorderColor={colors}
         pointBorderWidth={1}
         gridYValues={1}
-        theme={customTheme}
-       
+        theme={
+          {
+            axis: {
+              ticks: {
+                text: {
+                  fill: isDarkMode ? 'white' : theme.palette.text.primary,
+                },
+              },
+            },
+            tooltip: {
+              chip: {
+                borderRadius: '9999px',
+              },
+              container: {
+                fontSize: '12px',
+                textTransform: 'capitalize',
+                borderRadius: '6px',
+              },
+            },
+            grid: {
+              line: {
+                stroke: isDarkMode ? 'gray' : theme.palette.text.primary,
+              },
+            },
+          }
+        }
       />
     </div>
   );
