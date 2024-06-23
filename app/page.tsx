@@ -178,11 +178,22 @@ export default function Home() {
       <div className="inline-flex flex-col justify-center items-center gap-14 relative ml-3">
         <div className="inline-flex flex-row justify-between items-center w-full">
           <div className="text-3xl ml-2 mt-2">UmidaAg</div>
-          <Switch
-            checked={isDarkMode}
-            onChange={toggleDarkMode}
-            color="primary"
-          />
+          <div className="flex gap-4">
+            {isDarkMode ?
+              (
+                <p className="flex justify-center items-center">Dark Mode</p>
+              )
+              : 
+              (
+                <p className="flex justify-center items-center">Light Mode</p>
+              )
+            }
+            <Switch
+              checked={isDarkMode}
+              onChange={toggleDarkMode}
+              color="primary"
+            />
+          </div>
         </div>
         <div className="inline-flex flex-col  gap-[50px] relative ml-4 ">
           <div className="inline-flex justify-center items-center gap-[30px] relative">
